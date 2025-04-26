@@ -7,6 +7,11 @@ if ! ping -c 1 "$HOST" > /dev/null 2>&1; then
     exit 1
 fi
 
+if [[ $(hostname) == "rasp-new" ]]; then
+   eval $(ssh-agent -s)
+   ssh-add ~/.ssh/id_dorkframe_better
+fi
+
 # Setting this, so the repo does not need to be given on the commandline:
 export BORG_REPO=borg@${HOST}:/mnt/p1/backups
 
@@ -88,6 +93,10 @@ elif [ ${global_exit} -eq 1 ]; then
     info "Backup, Prune, and/or Compact finished with warnings"
 else
     info "Backup, Prune, and/or Compact finished with errors"
+fi
+
+if [[ $(hostname) == "rasp-new" ]]; then
+    ssh-agent -k
 fi
 
 exit ${global_exit}
