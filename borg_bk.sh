@@ -19,7 +19,14 @@ export BORG_REPO=borg@${HOST}:/mnt/p1/backups
 info() { printf "\n%s %s\n\n" "$( date )" "$*" >&2; }
 trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
 
-export BORG_PASSPHRASE=$(age --decrypt -i ~/.ssh/id_dorkframe ~/.ssh/borg_keyphrase)
+if [ -f ~/.ssh/id_dorkframe ]; then
+    export BORG_PASSPHRASE=$(age --decrypt -i ~/.ssh/id_dorkframe ~/.ssh/borg_keyphrase)
+elif [ -f ~/.ssh/id_dorkframe_better ]; then
+    export BORG_PASSPHRASE=$(age --decrypt -i ~/.ssh/id_dorkframe_better ~/.ssh/borg_keyphrase)
+else
+    echo "Neither id_dorkframe nor id_dorkframe_better exists. Exiting."
+    exit 1
+fi
 
 info "Starting backup"
 
