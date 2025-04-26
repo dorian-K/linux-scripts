@@ -28,8 +28,10 @@ if [ -f ~/.ssh/id_dorkframe ]; then
     export BORG_PASSPHRASE=$(age --decrypt -i ~/.ssh/id_dorkframe ~/.ssh/borg_keyphrase)
 elif [ -f ~/.ssh/id_dorkframe_better ]; then
     export BORG_PASSPHRASE=$(age --decrypt -i ~/.ssh/id_dorkframe_better ~/.ssh/borg_keyphrase)
+elif [ -f ~/.ssh/id_ed25519 ]; then
+    export BORG_PASSPHRASE=$(age --decrypt -i ~/.ssh/id_ed25519 ~/.ssh/borg_keyphrase)
 else
-    echo "Neither id_dorkframe nor id_dorkframe_better exists. Exiting."
+    echo "Neither id_dorkframe nor id_dorkframe_better nor id_ed25519 exists. Exiting."
     exit 1
 fi
 
