@@ -33,7 +33,9 @@ info "Starting backup"
 # Backup the most important directories into an archive named after
 # the machine this script is currently running on:
 
-borg create                         \
+nice -n 15                          \
+ ionice -c2 -n7                     \
+  borg create                       \
     --verbose                       \
     --filter AME                    \
     --list                          \
@@ -44,7 +46,7 @@ borg create                         \
     --exclude 'home/*/.cache/*'     \
     --exclude 'var/tmp/*'           \
     --exclude '**/.git/*'           \
-    --exclude 'home/*/.cache' \
+    --exclude 'home/*/.cache'       \
                                     \
     ::'{hostname}-{now}'            \
     "$HOME" "/etc"
