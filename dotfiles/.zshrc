@@ -1,16 +1,17 @@
 
 # rwth cluster has super old zsh
-if grep -qi 'rocky' /etc/os-release; then
-  if [[ -o interactive ]]; then
-    # Absolute path to the newer Zsh binary
-    NEW_ZSH="$HOME/opt/zsh/bin/zsh"
+IS_ROCKY_INTERACTIVE=false
+if grep -qi "rocky" /etc/os-release && [[ -o interactive ]]; then
+  IS_ROCKY_INTERACTIVE=true
+fi
 
-    # Only re-exec if the new binary exists and we're not already running it
-    if [[ -x "$NEW_ZSH" && "$ZSH_VERSION" != "$($NEW_ZSH -c 'echo $ZSH_VERSION')" ]]; then
-      # Optionally: prevent recursion by checking if we're already inside NEW_ZSH
-      echo "Spawning new zsh"
-      exec "$NEW_ZSH"
-    fi
+if [[ "$IS_ROCKY_INTERACTIVE" = true ]]; then
+  NEW_ZSH="$HOME/opt/zsh/bin/zsh"
+  # Only re-exec if the new binary exists and we're not already running it
+  if [[ -x "$NEW_ZSH" && "$ZSH_VERSION" != "$($NEW_ZSH -c 'echo $ZSH_VERSION')" ]]; then
+    # Optionally: prevent recursion by checking if we're already inside NEW_ZSH
+    echo "Spawning new zsh"
+    exec "$NEW_ZSH"
   fi
 fi
 
@@ -19,6 +20,7 @@ fi
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export TERM=xterm-256color
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -125,3 +127,27 @@ export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
+
+# funny rwth claix code
+if [[ "$IS_ROCKY_INTERACTIVE" = true ]]; then
+  if ! ssh-add -l >/dev/null 2>&1; then
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_ed25519
+  fi
+
+  echo "Setting up conda"
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('/cvmfs/jupyter.hpc.rwth.de/clients/conda-installer/conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/cvmfs/jupyter.hpc.rwth.de/clients/conda-installer/conda/etc/profile.d/conda.sh" ]; then
+          . "/cvmfs/jupyter.hpc.rwth.de/clients/conda-installer/conda/etc/profile.d/conda.sh"
+      else
+          export PATH="/cvmfs/jupyter.hpc.rwth.de/clients/conda-installer/conda/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+  # <<< conda initialize <<<
+fi
