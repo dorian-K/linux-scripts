@@ -88,7 +88,10 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting z)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting z alias-finder)
+
+zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 #source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
