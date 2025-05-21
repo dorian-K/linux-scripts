@@ -1,3 +1,19 @@
+
+# rwth cluster has super old zsh
+if grep -qi 'rocky' /etc/os-release; then
+  if [[ -o interactive ]]; then
+    # Absolute path to the newer Zsh binary
+    NEW_ZSH="$HOME/opt/zsh/bin/zsh"
+
+    # Only re-exec if the new binary exists and we're not already running it
+    if [[ -x "$NEW_ZSH" && "$ZSH_VERSION" != "$($NEW_ZSH -c 'echo $ZSH_VERSION')" ]]; then
+      # Optionally: prevent recursion by checking if we're already inside NEW_ZSH
+      echo "Spawning new zsh"
+      exec "$NEW_ZSH"
+    fi
+  fi
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
