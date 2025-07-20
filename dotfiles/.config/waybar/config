@@ -11,8 +11,6 @@
   ],
   "modules-right": [
     "tray",
-    "custom/spotify",
-    "custom/weather",
     "custom/storage",
     "custom/audio-switch",
     "pulseaudio",
@@ -104,8 +102,11 @@
     "escape": true
   },
   "custom/audio-switch": {
-    "format": "hello",
-    "on-click": "~/.config/waybar/modules/audio-switch.py"
+    "interval": 1,
+    "format": "{}",
+    "on-click": "~/.config/waybar/modules/audio-switch.py",
+    "exec": "~/.config/waybar/modules/audio-get-dev.sh",
+    "tooltip": false
   },
   "custom/storage": {
     "format": "{} ",

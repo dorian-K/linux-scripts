@@ -7,7 +7,7 @@ import re
 SKIP_SINK_NAMES = [
     "Easy Effects Sink",
     "",
-    "Ellesmere HDMI Audio [Radeon RX 470/480 / 570/580/590] Digital Stereo (HDMI 4)",
+    "Ellesmere HDMI Audio",
 ]  # List of devices to skip, leave empty for no filtering
 ENABLE_NOTIFICATIONS = True  # Set to False to disable notifications
 
@@ -55,14 +55,14 @@ def get_sinks():
         if sink_match:
             sink_id, sink_name = sink_match.groups()
             sink_name = sink_name.strip()
-            if sink_name not in SKIP_SINK_NAMES:
-                parsed_sinks.append(
-                    {
-                        "sink_id": int(sink_id),
-                        "sink_name": sink_name,
-                        "is_default": is_default,
-                    }
-                )
+            parsed_sinks.append(
+                {
+                    "sink_id": int(sink_id),
+                    "sink_name": sink_name,
+                    "is_default": is_default,
+                    "can_switch_to": sink_name not in SKIP_SINK_NAMES
+                }
+            )
 
     return parsed_sinks
 
@@ -80,6 +80,11 @@ def toggle_sink():
 
     # Calculate next device in list (cyclic)
     next_index = (current_index + 1) % len(sinks)
+    while not sinks[next_index]["can_switch_to"]:
+        if next_index == current_index:
+            # If we looped through all sinks and found no valid one, exit
+            return
+        next_index = (next_index + 1) % len(sinks)
     next_sink = sinks[next_index]
 
     # Set default device
