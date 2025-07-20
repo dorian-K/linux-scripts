@@ -13,3 +13,5 @@ log/
 
 # zcompile cached files
 *.zwc
+.mypy_cache
+__pycache__/
