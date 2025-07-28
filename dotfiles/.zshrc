@@ -1,8 +1,15 @@
-
+-
 # rwth cluster has super old zsh
 IS_ROCKY_INTERACTIVE=false
 if grep -qi "rocky" /etc/os-release && [[ -o interactive ]]; then
   IS_ROCKY_INTERACTIVE=true
+fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 if [[ "$IS_ROCKY_INTERACTIVE" = true ]]; then
@@ -26,7 +33,8 @@ export TERM=xterm-256color
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -93,6 +101,9 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting z alias-finder)
 zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
 zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
 #source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 source $ZSH/oh-my-zsh.sh
@@ -154,3 +165,6 @@ if [[ "$IS_ROCKY_INTERACTIVE" = true ]]; then
   unset __conda_setup
   # <<< conda initialize <<<
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
