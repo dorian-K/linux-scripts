@@ -19,6 +19,7 @@ link_dotfile() {
 }
 
 link_dotfile ".zshrc"
+link_dotfile ".p10k.zsh"
 link_dotfile ".oh-my-zsh"
 link_dotfile ".oh-my-zsh-custom"
 
@@ -28,3 +29,4 @@ if [[ " $@ " =~ " --desktop " ]]; then
 	link_dotfile ".config/kitty"
 	link_dotfile ".config/mako"
 fi
+
