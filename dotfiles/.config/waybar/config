@@ -16,6 +16,7 @@
     "pulseaudio",
     "network",
     "idle_inhibitor",
+    "custom/gnome-settings",
     "clock"
   ],
   "hyprland/submap": {
@@ -115,6 +116,12 @@
     "return-type": "json",
     "interval": 60,
     "exec": "~/.config/waybar/modules/storage.sh"
+  },
+  "custom/gnome-settings": {
+    "exec": "echo ' ⚙️'",
+    "on-click": "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center",
+    "tooltip": "Open GNOME Control Center",
+    "interval": 3600
   },
   "backlight": {
     "format": "{icon}",
