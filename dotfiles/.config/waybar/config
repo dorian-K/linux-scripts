@@ -17,6 +17,7 @@
     "network",
     "idle_inhibitor",
     "custom/gnome-settings",
+    "battery",
     "clock"
   ],
   "hyprland/submap": {
@@ -44,8 +45,8 @@
       "",
       ""
     ],
-    "format-charging": "{capacity}% ",
-    "interval": 30,
+    "format-charging": "{capacity}% 🔌",
+    "interval": 5,
     "states": {
       "warning": 25,
       "critical": 10
