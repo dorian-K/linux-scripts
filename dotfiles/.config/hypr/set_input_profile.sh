@@ -11,4 +11,4 @@ else
     hyprctl keyword input:accel_profile flat
 fi
 
-echo $HOSTNAME > ~/lol
+#echo $HOSTNAME > ~/lol
