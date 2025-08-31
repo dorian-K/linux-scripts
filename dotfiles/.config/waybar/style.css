@@ -19,7 +19,7 @@ window#waybar.solo {
 }
 
 #workspaces {
-    margin: 0 5px;
+    margin: 0 5px 0 0;
 }
 
 #workspaces button {
