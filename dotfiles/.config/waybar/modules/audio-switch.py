@@ -8,6 +8,7 @@ SKIP_SINK_NAMES = [
     "Easy Effects Sink",
     "",
     "Ellesmere HDMI Audio",
+    "HDA NVidia Digital Stereo (HDMI)"
 ]  # List of devices to skip, leave empty for no filtering
 ENABLE_NOTIFICATIONS = True  # Set to False to disable notifications
 
