@@ -2,6 +2,7 @@ services:
   glances:
     image: nicolargo/glances:latest
     container_name: glances
+    pull_policy: always
     restart: always
     ports:
       - "${TAILSCALE_IP}:61208:61208"

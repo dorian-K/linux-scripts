@@ -27,6 +27,7 @@ nice -n 15                          \
     --exclude 'var/tmp/*'           \
     --exclude '**/.git/*'           \
     --exclude 'home/*/.cache'       \
+    --exclude 'home/*/.bitmonero'   \
                                     \
     ::'{hostname}-{now}'            \
     "$HOME" "/etc"
