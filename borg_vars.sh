@@ -4,7 +4,7 @@
 HOST="truenas-dork.dorianko.ch.local"
 
 # Setting this, so the repo does not need to be given on the commandline:
-export BORG_REPO=borg@${HOST}:/mnt/p1/backups
+export BORG_REPO=borg@${HOST}:/mnt/p2/backups
 
 if ! ping -c 1 "$HOST" > /dev/null 2>&1; then
     echo "Host $HOST is down. Exiting."
