@@ -6,5 +6,5 @@ sudo pacman -Syu --noconfirm
 
 sudo pacman -S --needed --noconfirm zoxide fzf ripgrep hyprland hyprpaper hyprlauncher \
   waybar kitty hypridle hyprlock hyprpolkitagent wofi brightnessctl wireplumber pavucontrol hyprshot \
-  gnome-keyring network-manager-applet
+  gnome-keyring network-manager-applet bc
 yay -S --needed --noconfirm mako 
