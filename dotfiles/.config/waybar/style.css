@@ -1,7 +1,8 @@
 * {
     border:        none;
     border-radius: 0;
-    font-family:   Sans;
+/*    font-family:   Sans;*/
+    font-family: "JetBrainsMono Nerd Font", Hack Nerd Font Propo, Sans;
     font-size:     15px;
     box-shadow:    none;
     text-shadow:   none;

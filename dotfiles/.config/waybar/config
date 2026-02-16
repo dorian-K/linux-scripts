@@ -15,7 +15,6 @@
     "custom/audio-switch",
     "pulseaudio",
     "network",
-    "idle_inhibitor",
     "custom/gnome-settings",
     "battery",
     "clock"
@@ -77,18 +76,17 @@
     "format": "{icon}",
     "format-alt": "{volume} {icon}",
     "format-alt-click": "click-right",
-    "format-muted": "",
+    "format-muted": "",
     "format-icons": {
-      "phone": [
-        " ",
-        " ",
-        " ",
-        " "
-      ],
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
       "default": [
-        "",
         "",
-        "",
         ""
       ]
     },
