@@ -28,6 +28,7 @@ if [[ " $@ " =~ " --desktop " ]]; then
 	link_dotfile ".config/waybar"
 	link_dotfile ".config/kitty"
 	link_dotfile ".config/mako"
+        link_dotfile ".config/dunst"
 	link_dotfile ".config/spotify-flags.conf"
 fi
 
