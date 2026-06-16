@@ -109,6 +109,8 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 source $ZSH/oh-my-zsh.sh
 
+yay() { GIT_PAGER="$HOME/.local/bin/aur-llm-review" command yay "$@"; }
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
