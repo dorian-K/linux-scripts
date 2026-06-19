@@ -10,6 +10,6 @@ sudo pacman -S --needed --noconfirm zoxide fzf ripgrep hyprland hyprpaper hyprla
 
 install -Dm755 misc/aur-llm-review ~/.local/bin/aur-llm-review
 
-yay --save --answerdiff=All
+yay --save --answerdiff=All --version
 yay -S --needed --noconfirm mako
 
