@@ -1,4 +1,4 @@
-##!/bin/sh
+#!/usr/bin/env bash
 
 source ./borg_vars.sh
 
@@ -9,6 +9,12 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
 
 
 info "Starting backup"
+
+if [ "$(hostname)" = "DorkDesktop" ]; then # && [ $((RANDOM % 2)) -eq 0 ]
+    info "Syncing dorianko.ch home directory"
+    mkdir -p ./dorianko.ch_backup/
+    rsync -avhP --delete --exclude='/.*/' --exclude='*/.git/' --exclude='*/.venv/' --exclude='*/node_modules/' dorianko.ch:~/ ./dorianko.ch_backup/
+fi
 
 # Backup the most important directories into an archive named after
 # the machine this script is currently running on:
