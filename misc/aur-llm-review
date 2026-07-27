@@ -200,6 +200,7 @@ def print_report(label, body):
     print(bar)
 
     if label != "OK":
+        time.sleep(10)
         input("Press Enter to continue")
 
 
