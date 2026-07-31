@@ -13,6 +13,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+autoload -Uz select-word-style
+select-word-style bash 
+bindkey "^H" backward-kill-word   # Ctrl+Backspace
+bindkey "^[[3;5~"   kill-word     # Ctrl+Delete
+
 if [[ "$IS_ROCKY_INTERACTIVE" = true ]]; then
   NEW_ZSH="$HOME/opt/zsh/bin/zsh"
   # Only re-exec if the new binary exists and we're not already running it
