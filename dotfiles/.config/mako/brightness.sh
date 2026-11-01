@@ -13,6 +13,7 @@
 brightness=$(brightnessctl g)
 max_brightness=$(brightnessctl m)
 # Calculate the brightness percentage
-brightness_percentage=$(echo "scale=2; ($brightness / $max_brightness) * 100" | bc)
+#brightness_percentage=$(echo "scale=2; ($brightness / $max_brightness) * 100" | bc)
+brightness_percentage=$(brightnessctl -m | cut -d, -f4 | tr -d %)
 # Send a notification with the brightness percentage
 notify-send -t 1000 -a 'volbrightness' -h int:value:$brightness_percentage "Brightness: ${brightness_percentage}%"
