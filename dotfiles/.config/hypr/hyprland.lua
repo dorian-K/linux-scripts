@@ -4,9 +4,8 @@
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
-hl.env("GDK_BACKEND", "wayland")
-hl.env("QT_QPA_PLATFORM", "wayland")
-hl.env("SDL_VIDEODRIVER", "wayland")
+hl.env("GDK_BACKEND", "wayland,x11,*")
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("CLUTTER_BACKEND", "wayland")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
 hl.env("XDG_SESSION_TYPE", "wayland")
@@ -300,10 +299,10 @@ hl.bind("XF86AudioLowerVolume",
     { locked = true, repeating = true })
 hl.bind("XF86AudioMute",
     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-    { locked = true, repeating = true })
+    { locked = true, repeating = false })
 hl.bind("XF86AudioMicMute",
     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-    { locked = true, repeating = true })
+    { locked = true, repeating = false })
 hl.bind("XF86MonBrightnessUp",
     hl.dsp.exec_cmd("brightnessctl s -e 8%+ && ~/.config/mako/brightness.sh"),
     { locked = true, repeating = true })
@@ -387,7 +386,7 @@ hl.window_rule({
 -- One-shot placement rules.
 workspace_rule_once("discord", 2)
 workspace_rule_once("firefox", 1, { name = "w1_firefox" })
-workspace_rule_once("Spotify", 2)
+workspace_rule_once("spotify", 2)
 
 hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
 
@@ -413,7 +412,7 @@ hl.window_rule({ match = { class = "^(xdg-desktop-portal-gtk)$" }, size = { 900,
 -- hyprland.start fires once per session; config reloads fire a separate event.
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd("dbus-update-activation-environment --systemd --all")
     -- hl.exec_cmd(terminal)
     hl.exec_cmd("spotify")
     hl.exec_cmd("discord")
