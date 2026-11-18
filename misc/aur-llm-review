@@ -38,7 +38,7 @@ SETUP for yay (scoped so it doesn't affect your other git usage)
        export AUR_REVIEW_MODEL="anthropic/claude-sonnet-4.6"
        export AUR_REVIEW_API_KEY="sk-or-..."   # or use the key file instead
 
-       yay() { GIT_PAGER="$HOME/.local/bin/aur-llm-review" command yay "$@"; }
+       yay() { PAGER="$HOME/.local/bin/aur-llm-review" GIT_PAGER="$HOME/.local/bin/aur-llm-review" command yay "$@"; }
 
   3. Make sure the diff menu is on (it is by default). To always see diffs
      without being prompted each time:   yay --save --answerdiff=All
@@ -201,7 +201,14 @@ def print_report(label, body):
 
     if label != "OK":
         time.sleep(10)
-        input("Press Enter to continue")
+        # stdin is the (already consumed) diff pipe in pager mode, so read the
+        # keypress from the controlling terminal instead.
+        try:
+            with open("/dev/tty") as tty:
+                print("Press Enter to continue", end="", flush=True)
+                tty.readline()
+        except OSError:
+            pass
 
 
 def review(content):
